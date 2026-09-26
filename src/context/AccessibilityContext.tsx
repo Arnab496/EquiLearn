@@ -22,7 +22,6 @@ const DEFAULT_SETTINGS: AccessibilitySettings = {
   readingSpeed: 1.0,
   voicePitch: 1.0,
   selectedVoice: '',
-  lineFocusRuler: false,
   bionicReading: false,
   highContrast: false,
   soundCues: true,
@@ -71,13 +70,11 @@ const PROFILE_PRESETS: Record<AccessibilityProfileType, Partial<AccessibilitySet
     openDyslexic: true,
     lineSpacing: 'relaxed',
     colorOverlay: 'yellow',
-    lineFocusRuler: true,
     bionicReading: false,
     fontSize: 'large',
   },
   ADHD: {
     profile: 'ADHD',
-    lineFocusRuler: true,
     lineSpacing: 'relaxed',
     colorOverlay: 'mint',
     bionicReading: true,
@@ -129,16 +126,18 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     // Theme
+    const root = document.documentElement;
     if (settings.theme === 'dark') {
+      root.classList.add('dark');
       body.classList.add('dark', 'bg-[#0A101D]', 'text-slate-100');
       body.classList.remove('bg-[#FFFDF8]', 'text-[#24324A]');
     } else {
+      root.classList.remove('dark');
       body.classList.remove('dark', 'bg-[#0A101D]', 'text-slate-100');
       body.classList.add('bg-[#FFFDF8]', 'text-[#24324A]');
     }
 
     // Font size scaling
-    const root = document.documentElement;
     if (settings.fontSize === 'large') {
       root.style.fontSize = '18px';
     } else if (settings.fontSize === 'xlarge') {

@@ -62,15 +62,15 @@ export const AccessibilityProfilePage: React.FC = () => {
       icon: '📖',
       accent: '#FF6B6B',
       description: 'OpenDyslexic typography with weighted bottoms to prevent rotation, Scotopic sensitivity tints (Yellow/Peach), and line spacing.',
-      highlights: ['OpenDyslexic font engine', 'Soft yellow scotopic color tint', 'Interactive line focus reading ruler']
+      highlights: ['OpenDyslexic font engine', 'Soft yellow scotopic color tint', 'Comfortable line spacing']
     },
     {
       id: 'ADHD',
       label: 'ADHD & Focus',
       icon: '⚡',
       accent: '#F4B942',
-      description: 'Distraction-free environment with interactive line focus rulers, chunked 3-tier summaries, and mint-tinted contrast.',
-      highlights: ['Line focus reading ruler (Alt+↑/↓)', 'Chunked bullet summaries', 'Mint focus overlay']
+      description: 'Distraction-free environment with chunked 3-tier summaries, interactive quizzes, and mint-tinted contrast.',
+      highlights: ['Chunked 3-tier summaries', 'Active mastery flashcards', 'Mint focus overlay']
     },
     {
       id: 'Custom',

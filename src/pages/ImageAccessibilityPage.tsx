@@ -242,10 +242,10 @@ export const ImageAccessibilityPage: React.FC = () => {
               {isAnalyzing ? (
                 <div className="flex flex-col items-center justify-center py-10 space-y-2">
                   <Sparkles className="w-6 h-6 text-[#2EC4B6] animate-spin" />
-                  <span className="text-xs font-bold text-[#24324A]">Generating Multimodal Descriptions...</span>
+                  <span className="text-xs font-bold text-[#24324A] dark:text-white">Generating Multimodal Descriptions...</span>
                 </div>
               ) : (
-                <p className="text-xs sm:text-sm text-[#24324A] dark:text-slate-200 leading-relaxed font-medium">
+                <p className="text-xs sm:text-sm text-[#24324A] dark:text-slate-100 leading-relaxed font-medium">
                   {currentDescriptionText}
                 </p>
               )}
@@ -274,7 +274,7 @@ export const ImageAccessibilityPage: React.FC = () => {
 
                 <button
                   onClick={() => handleCopy(currentDescriptionText)}
-                  className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-[#E7EAF2] dark:border-slate-600 text-xs font-semibold text-[#64748B] hover:text-[#24324A] flex items-center gap-1.5 transition"
+                  className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-[#E7EAF2] dark:border-slate-600 text-xs font-semibold text-[#64748B] dark:text-slate-300 hover:text-[#24324A] dark:hover:text-white flex items-center gap-1.5 transition"
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-[#2EC4B6]" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied!' : 'Copy Text'}</span>
@@ -284,10 +284,10 @@ export const ImageAccessibilityPage: React.FC = () => {
 
             {/* Key Visual Landmarks list */}
             <div className="space-y-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#64748B] dark:text-slate-400">
                 Key Diagram Components:
               </span>
-              <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="grid grid-cols-2 gap-2 text-xs text-[#24324A] dark:text-slate-200">
                 <div className="p-2 rounded-lg bg-white dark:bg-slate-800 border border-[#E7EAF2] dark:border-slate-700">
                   <span className="font-bold text-[#FF6B6B]">Object (do):</span> Upright vertical red arrow
                 </div>

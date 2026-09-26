@@ -29,8 +29,8 @@ const PROFILES: Array<{ id: AccessibilityProfileType; label: string; desc: strin
   { id: 'Low Vision', label: 'Low Vision', desc: 'Enlarged text, high contrast', icon: '🔍' },
   { id: 'Deaf', label: 'Deaf', desc: 'Visual subtitles, sign language avatar', icon: '🧏' },
   { id: 'Hard of Hearing', label: 'Hard of Hearing', desc: 'High-clarity captions, boosted audio', icon: '🦻' },
-  { id: 'Dyslexia', label: 'Dyslexia', desc: 'OpenDyslexic font, yellow tint, ruler', icon: '📖' },
-  { id: 'ADHD', label: 'ADHD', desc: 'Line focus ruler, chunked text, mint tint', icon: '⚡' },
+  { id: 'Dyslexia', label: 'Dyslexia', desc: 'OpenDyslexic font, yellow tint, contrast', icon: '📖' },
+  { id: 'ADHD', label: 'ADHD', desc: 'Chunked summaries, high contrast, mint tint', icon: '⚡' },
   { id: 'General', label: 'Standard', desc: 'Balanced default interface', icon: '✨' },
 ];
 
@@ -206,27 +206,8 @@ export const AccessibilityDrawer: React.FC<AccessibilityDrawerProps> = ({ isOpen
           <div className="space-y-3 pt-3 border-t border-[#E7EAF2] dark:border-slate-800">
             <label className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-slate-400 flex items-center gap-1.5">
               <Eye className="w-3.5 h-3.5 text-[#2EC4B6]" />
-              Cognitive & Focus Guides
+              Cognitive & Reading Guides
             </label>
-
-            {/* Line Focus Ruler */}
-            <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-900/60 border border-[#E7EAF2] dark:border-slate-800">
-              <div>
-                <div className="text-sm font-semibold text-[#24324A] dark:text-white">Interactive Line Focus Ruler</div>
-                <div className="text-xs text-[#64748B] dark:text-slate-400">Dims surrounding text to isolate line (Alt+↑/↓)</div>
-              </div>
-              <button
-                role="switch"
-                aria-checked={settings.lineFocusRuler}
-                onClick={() => {
-                  updateSetting('lineFocusRuler', !settings.lineFocusRuler);
-                  triggerSoundCue();
-                }}
-                className={`w-12 h-6 rounded-full transition-colors relative ${settings.lineFocusRuler ? 'bg-[#2EC4B6]' : 'bg-slate-200 dark:bg-slate-700'}`}
-              >
-                <span className={`block w-4 h-4 rounded-full bg-white transition-transform ${settings.lineFocusRuler ? 'translate-x-7' : 'translate-x-1'}`} />
-              </button>
-            </div>
 
             {/* Screen Color Tint Overlay */}
             <div>

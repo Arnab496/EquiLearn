@@ -4,11 +4,11 @@ import { AuthProvider } from './context/AuthContext';
 import { MaterialsProvider } from './context/MaterialsContext';
 import { Navbar } from './components/Navbar';
 import { Sidebar, NavigationTab } from './components/Sidebar';
-import { LineFocusRuler } from './components/LineFocusRuler';
 import { AccessibilityDrawer } from './components/AccessibilityDrawer';
 import { AccessibilityAuditModal } from './components/AccessibilityAuditModal';
 import { ShortcutsModal } from './components/ShortcutsModal';
 import { SkipLink } from './components/SkipLink';
+import { OfflineStatusBanner } from './components/OfflineStatusBanner';
 
 // Pages
 import { LandingPage } from './pages/LandingPage';
@@ -48,12 +48,6 @@ function AppContent() {
       else if (e.altKey && (e.key === 'd' || e.key === 'D')) {
         e.preventDefault();
         updateSetting('openDyslexic', !settings.openDyslexic);
-        triggerSoundCue('success');
-      }
-      // Alt + F: Toggle Line Focus Ruler
-      else if (e.altKey && (e.key === 'f' || e.key === 'F')) {
-        e.preventDefault();
-        updateSetting('lineFocusRuler', !settings.lineFocusRuler);
         triggerSoundCue('success');
       }
       // Alt + P: Play / Pause Speech Reader
@@ -137,8 +131,8 @@ function AppContent() {
       {/* WCAG Skip Navigation Link */}
       <SkipLink />
 
-      {/* Interactive Line Focus Ruler (When enabled) */}
-      <LineFocusRuler />
+      {/* Offline Status & Storage Alert Strip */}
+      <OfflineStatusBanner />
 
       {/* Top Navbar */}
       <Navbar

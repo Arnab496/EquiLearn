@@ -60,30 +60,30 @@ export const SignLanguageAvatar: React.FC<SignLanguageAvatarProps> = ({ currentT
   return (
     <div className={`glass-card rounded-2xl p-4 border border-[#2EC4B6]/30 overflow-hidden relative ${isFloating ? 'shadow-2xl max-w-sm' : 'w-full'}`}>
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#E7EAF2] mb-3">
+      <div className="flex items-center justify-between pb-3 border-b border-[#E7EAF2] dark:border-slate-800 mb-3">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-[#2EC4B6]/15 flex items-center justify-center text-[#2EC4B6]">
             <Hand className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-semibold text-sm text-[#24324A] flex items-center gap-1.5">
+            <h3 className="font-semibold text-sm text-[#24324A] dark:text-white flex items-center gap-1.5">
               Sign Language Avatar
               <span className="inline-block w-2 h-2 rounded-full bg-[#2EC4B6] animate-pulse" />
             </h3>
-            <span className="text-[11px] text-[#64748B]">Real-time ASL / ISL Interpretation</span>
+            <span className="text-[11px] text-[#64748B] dark:text-slate-400">Real-time ASL / ISL Interpretation</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-1 bg-[#F7F9FC] p-1 rounded-lg border border-[#E7EAF2]">
+        <div className="flex items-center gap-1 bg-[#F7F9FC] dark:bg-slate-800 p-1 rounded-lg border border-[#E7EAF2] dark:border-slate-700">
           <button
             onClick={() => setAvatarMode('ASL')}
-            className={`px-2 py-0.5 text-xs font-semibold rounded ${avatarMode === 'ASL' ? 'bg-white text-[#2EC4B6] shadow-sm' : 'text-[#64748B]'}`}
+            className={`px-2 py-0.5 text-xs font-semibold rounded ${avatarMode === 'ASL' ? 'bg-white dark:bg-slate-900 text-[#2EC4B6] shadow-sm' : 'text-[#64748B] dark:text-slate-300'}`}
           >
             ASL
           </button>
           <button
             onClick={() => setAvatarMode('ISL')}
-            className={`px-2 py-0.5 text-xs font-semibold rounded ${avatarMode === 'ISL' ? 'bg-white text-[#2EC4B6] shadow-sm' : 'text-[#64748B]'}`}
+            className={`px-2 py-0.5 text-xs font-semibold rounded ${avatarMode === 'ISL' ? 'bg-white dark:bg-slate-900 text-[#2EC4B6] shadow-sm' : 'text-[#64748B] dark:text-slate-300'}`}
           >
             ISL
           </button>
@@ -91,7 +91,7 @@ export const SignLanguageAvatar: React.FC<SignLanguageAvatarProps> = ({ currentT
       </div>
 
       {/* Avatar Stage Container */}
-      <div className="relative w-full aspect-[4/3] bg-gradient-to-b from-[#F0FAF9] to-[#E2F7F4] rounded-xl flex items-center justify-center overflow-hidden border border-[#2EC4B6]/20">
+      <div className="relative w-full aspect-[4/3] bg-gradient-to-b from-[#F0FAF9] to-[#E2F7F4] dark:from-slate-900 dark:to-slate-950 rounded-xl flex items-center justify-center overflow-hidden border border-[#2EC4B6]/20">
         {/* Subtle grid background */}
         <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#2EC4B6_1px,transparent_1px)] [background-size:16px_16px]" />
 
@@ -205,11 +205,11 @@ export const SignLanguageAvatar: React.FC<SignLanguageAvatarProps> = ({ currentT
         </svg>
 
         {/* Current Active Sign Badge */}
-        <div className="absolute bottom-2 left-2 right-2 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#2EC4B6]/30 shadow-sm flex items-center justify-between">
+        <div className="absolute bottom-2 left-2 right-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#2EC4B6]/30 shadow-sm flex items-center justify-between">
           <div className="flex items-center gap-1.5 truncate">
             <span className="w-2 h-2 rounded-full bg-[#2EC4B6]" />
-            <span className="text-xs font-bold text-[#24324A]">{activeGesture.label}</span>
-            <span className="text-[11px] text-[#64748B] truncate hidden sm:inline">({activeGesture.meaning})</span>
+            <span className="text-xs font-bold text-[#24324A] dark:text-white">{activeGesture.label}</span>
+            <span className="text-[11px] text-[#64748B] dark:text-slate-400 truncate hidden sm:inline">({activeGesture.meaning})</span>
           </div>
           <span className="text-[10px] font-mono font-medium text-[#2EC4B6] bg-[#2EC4B6]/10 px-1.5 py-0.5 rounded">
             {speed}x
@@ -230,7 +230,7 @@ export const SignLanguageAvatar: React.FC<SignLanguageAvatarProps> = ({ currentT
           <button
             onClick={() => setAnimationTick(0)}
             aria-label="Replay current sign gesture"
-            className="p-2 rounded-lg bg-[#F7F9FC] text-[#64748B] hover:text-[#24324A] border border-[#E7EAF2] transition"
+            className="p-2 rounded-lg bg-[#F7F9FC] dark:bg-slate-800 text-[#64748B] dark:text-slate-300 hover:text-[#24324A] dark:hover:text-white border border-[#E7EAF2] dark:border-slate-700 transition"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
@@ -242,7 +242,7 @@ export const SignLanguageAvatar: React.FC<SignLanguageAvatarProps> = ({ currentT
             <button
               key={s}
               onClick={() => setSpeed(s)}
-              className={`px-2 py-1 text-xs font-medium rounded ${speed === s ? 'bg-[#2EC4B6]/15 text-[#2EC4B6] font-bold' : 'text-[#64748B] hover:bg-[#F7F9FC]'}`}
+              className={`px-2 py-1 text-xs font-medium rounded ${speed === s ? 'bg-[#2EC4B6]/15 text-[#2EC4B6] font-bold' : 'text-[#64748B] dark:text-slate-400 hover:bg-[#F7F9FC] dark:hover:bg-slate-800'}`}
             >
               {s}x
             </button>
@@ -254,7 +254,7 @@ export const SignLanguageAvatar: React.FC<SignLanguageAvatarProps> = ({ currentT
           value={activeGestureKey}
           onChange={(e) => setActiveGestureKey(e.target.value)}
           aria-label="Select Sign Language Gesture"
-          className="text-xs bg-[#F7F9FC] border border-[#E7EAF2] rounded-lg px-2 py-1 text-[#24324A] font-medium focus:ring-1 focus:ring-[#2EC4B6]"
+          className="text-xs bg-[#F7F9FC] dark:bg-slate-800 border border-[#E7EAF2] dark:border-slate-700 rounded-lg px-2 py-1 text-[#24324A] dark:text-white font-medium focus:ring-1 focus:ring-[#2EC4B6]"
         >
           {Object.keys(ASL_GESTURES).map((k) => (
             <option key={k} value={k}>

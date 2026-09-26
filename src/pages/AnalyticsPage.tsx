@@ -72,11 +72,11 @@ export const AnalyticsPage: React.FC = () => {
             <div className="flex items-center gap-3 text-xs">
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-sm bg-[#2EC4B6]" />
-                <span className="text-[#64748B]">Materials</span>
+                <span className="text-[#64748B] dark:text-slate-300 font-medium">Materials</span>
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-sm bg-[#9B8AFB]" />
-                <span className="text-[#64748B]">Audio Hours</span>
+                <span className="text-[#64748B] dark:text-slate-300 font-medium">Audio Hours</span>
               </span>
             </div>
           </div>
@@ -146,7 +146,7 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           <div className="p-4 rounded-xl bg-[#F7F9FC] dark:bg-slate-800/60 text-xs text-[#64748B] dark:text-slate-300 border border-[#E7EAF2] dark:border-slate-700">
-            <strong>Key Insight:</strong> Dyslexia and scotopic overlay accommodation requests rose by 45% this semester, followed by video sign-language interpreter utilization.
+            <strong className="text-[#24324A] dark:text-white font-bold">Key Insight:</strong> Dyslexia and scotopic overlay accommodation requests rose by 45% this semester, followed by video sign-language interpreter utilization.
           </div>
         </div>
       </div>

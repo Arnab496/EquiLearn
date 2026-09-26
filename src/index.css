@@ -1,17 +1,31 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     --bg-primary: #FFFDF8;
     --bg-secondary: #F7F9FC;
-    --text-primary: #24324A;
-    --text-secondary: #64748B;
+    --text-primary: #1E293B;
+    --text-secondary: #475569;
     --accent-coral: #FF6B6B;
     --accent-teal: #2EC4B6;
     --accent-amber: #F4B942;
     --accent-lavender: #9B8AFB;
     --accent-sage: #8ACB88;
-    --border-color: #E7EAF2;
+    --border-color: #E2E8F0;
+    color-scheme: light;
+  }
+
+  html.dark, body.dark {
+    --bg-primary: #080C14;
+    --bg-secondary: #0F172A;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --border-color: #334155;
+    background-color: #080C14 !important;
+    color: #F8FAFC !important;
+    color-scheme: dark;
   }
 
   body {
@@ -19,6 +33,24 @@
     color: var(--text-primary);
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  /* Explicit light and dark theme text rules for guaranteed contrast */
+  html:not(.dark) h1, html:not(.dark) h2, html:not(.dark) h3, html:not(.dark) h4 {
+    color: #1E293B;
+  }
+
+  html.dark h1, html.dark h2, html.dark h3, html.dark h4 {
+    color: #F8FAFC;
+  }
+
+  html:not(.dark) input, html:not(.dark) textarea, html:not(.dark) select {
+    color: #1E293B;
+  }
+
+  html.dark input, html.dark textarea, html.dark select {
+    color: #F8FAFC;
   }
 }
 
@@ -52,31 +84,65 @@
   filter: contrast(140%) !important;
 }
 .high-contrast-dark {
-  background-color: #0d1117 !important;
+  background-color: #05080f !important;
   color: #ffffff !important;
+}
+
+/* Dynamic theme overrides to guarantee text and background contrast switch */
+html.dark .text-\[\#24324A\],
+body.dark .text-\[\#24324A\] {
+  color: #F8FAFC !important;
+}
+
+html.dark .text-\[\#64748B\],
+body.dark .text-\[\#64748B\] {
+  color: #94A3B8 !important;
+}
+
+html.dark .bg-\[\#FFFDF8\],
+body.dark .bg-\[\#FFFDF8\] {
+  background-color: #080C14 !important;
+}
+
+html.dark .bg-\[\#F7F9FC\],
+body.dark .bg-\[\#F7F9FC\] {
+  background-color: #0F172A !important;
+}
+
+html.dark .border-\[\#E7EAF2\],
+body.dark .border-\[\#E7EAF2\] {
+  border-color: #334155 !important;
 }
 
 /* Custom Glassmorphism styles */
 .glass-card {
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(231, 234, 242, 0.8);
-  box-shadow: 0 10px 30px -10px rgba(36, 50, 74, 0.06), 0 4px 12px -2px rgba(36, 50, 74, 0.03);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  color: #1E293B;
+  box-shadow: 0 10px 30px -10px rgba(30, 41, 59, 0.06), 0 4px 12px -2px rgba(30, 41, 59, 0.03);
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
-.glass-card-dark {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+body.dark .glass-card {
+  background: rgba(15, 23, 42, 0.90) !important;
+  border-color: rgba(51, 65, 85, 0.8) !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6) !important;
 }
 
 .glass-pill {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(231, 234, 242, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  color: #1E293B;
+}
+
+body.dark .glass-pill {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(51, 65, 85, 0.8) !important;
+  color: #F8FAFC !important;
 }
 
 /* Custom Focus Ring for WCAG 2.1 AA */
@@ -98,8 +164,14 @@
   background: #cbd5e1;
   border-radius: 9999px;
 }
+body.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+body.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
 }
 
 /* Animated gradient blobs */

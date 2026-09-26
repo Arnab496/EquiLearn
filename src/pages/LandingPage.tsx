@@ -106,7 +106,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp, onOpenAudi
     },
     {
       title: 'Dyslexia & ADHD Focus Suite',
-      desc: 'OpenDyslexic typography, Scotopic sensitivity tint overlays (Yellow, Peach, Mint), and interactive line focus reading rulers.',
+      desc: 'OpenDyslexic typography, Scotopic sensitivity tint overlays (Yellow, Peach, Mint), and chunked adaptive reading.',
       icon: Eye,
       color: '#FF6B6B',
       badge: 'WCAG 2.1 AA'

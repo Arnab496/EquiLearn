@@ -208,7 +208,7 @@ export const VideoModulePage: React.FC = () => {
                     className={`px-2 py-1 text-xs font-semibold rounded ${
                       playbackSpeed === s
                         ? 'bg-[#2EC4B6]/15 text-[#2EC4B6] font-bold'
-                        : 'text-[#64748B] hover:text-[#24324A]'
+                        : 'text-[#64748B] dark:text-slate-300 hover:text-[#24324A] dark:hover:text-white'
                     }`}
                   >
                     {s}x
@@ -235,7 +235,7 @@ export const VideoModulePage: React.FC = () => {
                 <h3 className="font-bold text-sm text-[#24324A] dark:text-white">
                   Synchronized Whisper Transcript
                 </h3>
-                <span className="text-[11px] text-[#64748B]">Click any line to jump video</span>
+                <span className="text-[11px] text-[#64748B] dark:text-slate-400">Click any line to jump video</span>
               </div>
 
               {/* Transcript Search */}
@@ -263,7 +263,7 @@ export const VideoModulePage: React.FC = () => {
                     className={`p-3 rounded-xl border text-xs transition cursor-pointer flex items-start gap-3 ${
                       isActive
                         ? 'bg-[#2EC4B6]/10 border-[#2EC4B6] shadow-xs'
-                        : 'bg-[#F7F9FC] dark:bg-slate-800/60 border-[#E7EAF2] dark:border-slate-800 hover:border-slate-300'
+                        : 'bg-[#F7F9FC] dark:bg-slate-800/60 border-[#E7EAF2] dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     <div className="shrink-0 flex flex-col items-center">
@@ -273,7 +273,7 @@ export const VideoModulePage: React.FC = () => {
                     </div>
 
                     <div className="flex-1">
-                      <div className="font-semibold text-[#64748B] text-[11px] mb-0.5">
+                      <div className="font-semibold text-[#64748B] dark:text-slate-400 text-[11px] mb-0.5">
                         {item.speaker}
                       </div>
                       <p className={`leading-relaxed ${isActive ? 'text-[#24324A] dark:text-white font-bold' : 'text-[#64748B] dark:text-slate-300'}`}>

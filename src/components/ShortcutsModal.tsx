@@ -12,8 +12,6 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
   const SHORTCUTS = [
     { key: 'Alt + P', description: 'Play or pause Text-to-Speech audio reader' },
     { key: 'Alt + D', description: 'Toggle OpenDyslexic weighted font on/off' },
-    { key: 'Alt + F', description: 'Toggle interactive Line Focus Reading Ruler' },
-    { key: 'Alt + ↑ / ↓', description: 'Move Line Focus Ruler vertically across document' },
     { key: 'Alt + A', description: 'Open Accessibility Preferences Suite' },
     { key: 'Alt + S', description: 'Jump to Global Search input' },
     { key: 'Esc', description: 'Close any active modal, drawer, or dialog' },

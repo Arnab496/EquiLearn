@@ -146,7 +146,7 @@ export const SummaryQuizPage: React.FC = () => {
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition ${
               activeSubTab === 'summary'
                 ? 'bg-white dark:bg-slate-900 text-[#FF6B6B] shadow-xs'
-                : 'text-[#64748B] hover:text-[#24324A]'
+                : 'text-[#64748B] dark:text-slate-400 hover:text-[#24324A] dark:hover:text-white'
             }`}
           >
             Summary Tiers
@@ -156,7 +156,7 @@ export const SummaryQuizPage: React.FC = () => {
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition ${
               activeSubTab === 'flashcards'
                 ? 'bg-white dark:bg-slate-900 text-[#2EC4B6] shadow-xs'
-                : 'text-[#64748B] hover:text-[#24324A]'
+                : 'text-[#64748B] dark:text-slate-400 hover:text-[#24324A] dark:hover:text-white'
             }`}
           >
             Flashcards
@@ -166,7 +166,7 @@ export const SummaryQuizPage: React.FC = () => {
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition ${
               activeSubTab === 'quiz'
                 ? 'bg-white dark:bg-slate-900 text-[#9B8AFB] shadow-xs'
-                : 'text-[#64748B] hover:text-[#24324A]'
+                : 'text-[#64748B] dark:text-slate-400 hover:text-[#24324A] dark:hover:text-white'
             }`}
           >
             Mastery Quiz
@@ -282,7 +282,7 @@ export const SummaryQuizPage: React.FC = () => {
       {/* SUBTAB 2: FLASHCARDS */}
       {activeSubTab === 'flashcards' && (
         <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-[#E7EAF2] dark:border-slate-800 shadow-xs flex flex-col items-center space-y-6">
-          <div className="w-full flex items-center justify-between text-xs text-[#64748B]">
+          <div className="w-full flex items-center justify-between text-xs text-[#64748B] dark:text-slate-400">
             <span>Card {currentFlashcardIndex + 1} of {FLASHCARDS.length}</span>
             <span>Click card to reveal answer</span>
           </div>
@@ -298,7 +298,7 @@ export const SummaryQuizPage: React.FC = () => {
             <p className="text-base sm:text-lg font-bold text-[#24324A] dark:text-white leading-relaxed">
               {isFlipped ? FLASHCARDS[currentFlashcardIndex].back : FLASHCARDS[currentFlashcardIndex].front}
             </p>
-            <span className="text-[11px] text-[#64748B] mt-4">
+            <span className="text-[11px] text-[#64748B] dark:text-slate-400 mt-4">
               (Click to {isFlipped ? 'show question' : 'flip'})
             </span>
           </div>
@@ -311,7 +311,7 @@ export const SummaryQuizPage: React.FC = () => {
                 setCurrentFlashcardIndex((prev) => Math.max(0, prev - 1));
               }}
               disabled={currentFlashcardIndex === 0}
-              className="px-4 py-2 rounded-xl bg-[#F7F9FC] dark:bg-slate-800 text-[#64748B] hover:text-[#24324A] disabled:opacity-40 text-xs font-bold transition"
+              className="px-4 py-2 rounded-xl bg-[#F7F9FC] dark:bg-slate-800 text-[#64748B] dark:text-slate-300 hover:text-[#24324A] dark:hover:text-white disabled:opacity-40 text-xs font-bold transition"
             >
               Previous Card
             </button>
@@ -354,7 +354,7 @@ export const SummaryQuizPage: React.FC = () => {
           ) : (
             /* Active Question Screen */
             <div className="space-y-6">
-              <div className="flex items-center justify-between text-xs text-[#64748B] pb-3 border-b border-[#E7EAF2] dark:border-slate-800">
+              <div className="flex items-center justify-between text-xs text-[#64748B] dark:text-slate-400 pb-3 border-b border-[#E7EAF2] dark:border-slate-800">
                 <span>Question {currentQuestionIndex + 1} of {QUIZ_QUESTIONS.length}</span>
                 <span className="font-semibold text-[#2EC4B6]">Current Score: {score}</span>
               </div>
@@ -370,19 +370,19 @@ export const SummaryQuizPage: React.FC = () => {
                   const isCorrect = idx === QUIZ_QUESTIONS[currentQuestionIndex].correctIndex;
 
                   let borderClass = 'border-[#E7EAF2] dark:border-slate-800 hover:border-[#2EC4B6]';
-                  let bgClass = 'bg-[#F7F9FC] dark:bg-slate-800/60';
+                  let bgClass = 'bg-[#F7F9FC] dark:bg-slate-800/60 text-[#24324A] dark:text-slate-100';
 
                   if (hasSubmitted) {
                     if (isCorrect) {
                       borderClass = 'border-[#2EC4B6] ring-1 ring-[#2EC4B6]';
-                      bgClass = 'bg-[#2EC4B6]/10 text-[#24324A] dark:text-white';
+                      bgClass = 'bg-[#2EC4B6]/10 text-[#2EC4B6] dark:text-[#38D9FF] font-semibold';
                     } else if (isSelected && !isCorrect) {
                       borderClass = 'border-[#FF6B6B] ring-1 ring-[#FF6B6B]';
-                      bgClass = 'bg-[#FF6B6B]/10';
+                      bgClass = 'bg-[#FF6B6B]/10 text-[#FF6B6B]';
                     }
                   } else if (isSelected) {
                     borderClass = 'border-[#2EC4B6] ring-1 ring-[#2EC4B6]';
-                    bgClass = 'bg-[#2EC4B6]/10 text-[#24324A] dark:text-white';
+                    bgClass = 'bg-[#2EC4B6]/10 text-[#2EC4B6] dark:text-[#38D9FF] font-semibold';
                   }
 
                   return (

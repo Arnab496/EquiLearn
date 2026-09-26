@@ -17,7 +17,9 @@ import {
   LogOut, 
   User as UserIcon,
   ShieldCheck,
-  BookOpen
+  BookOpen,
+  Database,
+  WifiOff
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -25,16 +27,18 @@ interface NavbarProps {
   onOpenShortcuts: () => void;
   onOpenAudit: () => void;
   onToggleSidebar?: () => void;
+  onOpenOfflineManager?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
   onOpenAccessibility, 
   onOpenShortcuts, 
   onOpenAudit,
+  onOpenOfflineManager
 }) => {
   const { user, loginAsDemoUser, logout } = useAuth();
   const { settings, updateSetting, isSpeaking, stopSpeech, playSpeech } = useAccessibility();
-  const { searchQuery, setSearchQuery, activeMaterial } = useMaterials();
+  const { searchQuery, setSearchQuery, activeMaterial, isOnline, cachedCount, cacheSize } = useMaterials();
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -70,10 +74,28 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenAccessibility}
             title="Click to change accessibility profile"
-            className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#2EC4B6]/10 text-[#2EC4B6] border border-[#2EC4B6]/20 hover:bg-[#2EC4B6]/20 transition"
+            className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#2EC4B6]/10 text-[#2EC4B6] dark:text-[#38D9FF] border border-[#2EC4B6]/20 hover:bg-[#2EC4B6]/20 transition"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#2EC4B6] animate-pulse" />
             <span>Profile: {settings.profile}</span>
+          </button>
+
+          {/* Offline Storage Status Pill */}
+          <button
+            onClick={onOpenOfflineManager}
+            title={isOnline ? `IndexedDB browser cache active (${cacheSize})` : 'Offline Mode: Browsing local converted materials'}
+            className={`hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold transition border ${
+              isOnline
+                ? 'bg-slate-100 dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#E7EAF2] dark:border-slate-700 hover:border-[#2EC4B6]'
+                : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
+            }`}
+          >
+            {isOnline ? (
+              <Database className="w-3.5 h-3.5 text-[#2EC4B6]" />
+            ) : (
+              <WifiOff className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+            )}
+            <span>{isOnline ? `${cachedCount} Offline Ready` : 'Offline Mode'}</span>
           </button>
         </div>
 

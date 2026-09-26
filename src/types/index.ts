@@ -21,7 +21,6 @@ export interface AccessibilitySettings {
   readingSpeed: number;
   voicePitch: number;
   selectedVoice: string;
-  lineFocusRuler: boolean;
   bionicReading: boolean;
   highContrast: boolean;
   soundCues: boolean;
@@ -74,6 +73,10 @@ export interface Material {
   audioTranscript?: string;
   definitions?: Array<{ term: string; definition: string }>;
   keyPoints?: string[];
+  isOfflineAvailable?: boolean;
+  cachedAt?: string;
+  offlineSize?: string;
+  isCustomUploaded?: boolean;
 }
 
 export interface QuizQuestion {

@@ -127,6 +127,15 @@ export const PdfReaderPage: React.FC = () => {
               <span>Page {activePage} of {totalPages}</span>
               <span>·</span>
               <span>{activeMaterial.readingTime}</span>
+              {activeMaterial.isOfflineAvailable && (
+                <>
+                  <span>·</span>
+                  <span className="text-[#2EC4B6] dark:text-[#38D9FF] flex items-center gap-1 font-semibold">
+                    <Check className="w-3 h-3" />
+                    Offline Cached ({activeMaterial.offlineSize || 'Ready'})
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -237,27 +246,11 @@ export const PdfReaderPage: React.FC = () => {
                 className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition ${
                   settings.openDyslexic
                     ? 'bg-[#FF6B6B]/15 text-[#FF6B6B] border-[#FF6B6B]'
-                    : 'bg-[#F7F9FC] dark:bg-slate-800 text-[#64748B] border-[#E7EAF2] dark:border-slate-700'
+                    : 'bg-[#F7F9FC] dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#E7EAF2] dark:border-slate-700'
                 }`}
               >
                 <Type className="w-3.5 h-3.5" />
                 <span>OpenDyslexic: {settings.openDyslexic ? 'ON' : 'OFF'}</span>
-              </button>
-
-              {/* Line Focus Ruler Fast Toggle */}
-              <button
-                onClick={() => {
-                  updateSetting('lineFocusRuler', !settings.lineFocusRuler);
-                  triggerSoundCue();
-                }}
-                className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition ${
-                  settings.lineFocusRuler
-                    ? 'bg-[#2EC4B6]/15 text-[#2EC4B6] border-[#2EC4B6]'
-                    : 'bg-[#F7F9FC] dark:bg-slate-800 text-[#64748B] border-[#E7EAF2] dark:border-slate-700'
-                }`}
-              >
-                <Eye className="w-3.5 h-3.5" />
-                <span>Line Focus: {settings.lineFocusRuler ? 'ON' : 'OFF'}</span>
               </button>
             </div>
           </div>

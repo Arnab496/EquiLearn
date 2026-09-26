@@ -13,7 +13,11 @@ import {
   Bookmark, 
   ArrowRight,
   Upload,
-  Plus
+  Plus,
+  Database,
+  CheckCircle2,
+  HardDriveDownload,
+  WifiOff
 } from 'lucide-react';
 
 interface MaterialsLibraryPageProps {
@@ -31,7 +35,11 @@ export const MaterialsLibraryPage: React.FC<MaterialsLibraryPageProps> = ({ onNa
     setSearchQuery,
     selectedCategory,
     setSelectedCategory,
-    addNewMaterial
+    addNewMaterial,
+    toggleOfflineAvailability,
+    cachedCount,
+    cacheSize,
+    isOnline
   } = useMaterials();
 
   const { triggerSoundCue } = useAccessibility();
@@ -170,15 +178,21 @@ export const MaterialsLibraryPage: React.FC<MaterialsLibraryPageProps> = ({ onNa
                     className={`p-2 rounded-lg transition ${
                       isBookmarked
                         ? 'text-[#F4B942] bg-amber-50 dark:bg-amber-950/30'
-                        : 'text-[#64748B] hover:text-[#24324A]'
+                        : 'text-[#64748B] dark:text-slate-400 hover:text-[#24324A] dark:hover:text-white'
                     }`}
                   >
                     <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
                   </button>
                 </div>
 
-                <div className="text-[10px] font-bold uppercase tracking-wider text-[#64748B] mb-1">
-                  {mat.category} · {mat.readingTime || mat.duration}
+                <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-[#64748B] dark:text-slate-400 mb-1">
+                  <span>{mat.category} · {mat.readingTime || mat.duration}</span>
+                  {mat.isOfflineAvailable && (
+                    <span className="inline-flex items-center gap-1 text-[#2EC4B6] dark:text-[#38D9FF] bg-[#2EC4B6]/10 px-1.5 py-0.2 rounded font-mono lowercase">
+                      <CheckCircle2 className="w-3 h-3" />
+                      offline ready
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="font-bold text-base text-[#24324A] dark:text-white line-clamp-2 group-hover:text-[#2EC4B6] transition">
@@ -194,7 +208,7 @@ export const MaterialsLibraryPage: React.FC<MaterialsLibraryPageProps> = ({ onNa
                   {mat.accessibleFormats.map((fmt, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-[#F7F9FC] dark:bg-slate-800 text-[#64748B]"
+                      className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-[#F7F9FC] dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border border-[#E7EAF2] dark:border-slate-700"
                     >
                       {fmt}
                     </span>
@@ -202,9 +216,24 @@ export const MaterialsLibraryPage: React.FC<MaterialsLibraryPageProps> = ({ onNa
                 </div>
               </div>
 
-              {/* Action Launch Button */}
-              <div className="mt-6 pt-4 border-t border-[#E7EAF2] dark:border-slate-800 flex items-center justify-between">
-                <span className="text-xs font-mono text-[#64748B]">{mat.size}</span>
+              {/* Action Launch Button & Offline Toggle */}
+              <div className="mt-6 pt-4 border-t border-[#E7EAF2] dark:border-slate-800 flex items-center justify-between gap-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleOfflineAvailability(mat.id);
+                    triggerSoundCue('chime');
+                  }}
+                  title={mat.isOfflineAvailable ? 'Stored in IndexedDB cache. Click to remove.' : 'Save to browser IndexedDB for offline access.'}
+                  className={`text-[11px] font-semibold flex items-center gap-1 px-2 py-1 rounded-lg border transition ${
+                    mat.isOfflineAvailable
+                      ? 'text-[#2EC4B6] dark:text-[#38D9FF] bg-[#2EC4B6]/10 border-[#2EC4B6]/30'
+                      : 'text-[#64748B] dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-[#2EC4B6]'
+                  }`}
+                >
+                  <Database className="w-3 h-3" />
+                  <span>{mat.isOfflineAvailable ? 'Offline Cached' : 'Cache Offline'}</span>
+                </button>
 
                 <button
                   onClick={() => {
