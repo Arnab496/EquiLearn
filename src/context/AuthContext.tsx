@@ -6,8 +6,8 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   loginAsDemoUser: (userKey: 'blind' | 'deaf' | 'dyslexic' | 'teacher' | 'adhd') => void;
-  loginWithEmail: (email: string, name: string) => void;
-  loginWithGoogle: () => void;
+  loginWithEmail: (email: string, name?: string, profile?: AccessibilityProfileType, role?: 'student' | 'teacher') => void;
+  loginWithGoogle: (googleUser?: { name?: string; email?: string; avatar?: string; profile?: AccessibilityProfileType }) => void;
   logout: () => void;
   switchProfile: (profileType: AccessibilityProfileType) => void;
 }
@@ -48,7 +48,7 @@ export const DEMO_USERS: Record<string, User> = {
     role: 'student',
     avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=250&q=80',
     profileType: 'Dyslexia',
-    primaryAssistance: 'OpenDyslexic Font, Soft Yellow Overlay & Interactive Line Focus Ruler',
+    primaryAssistance: 'OpenDyslexic Font, Soft Yellow Overlay & High-Contrast Focus Mode',
     stats: {
       materialsCompleted: 22,
       hoursLearned: 41.0,
@@ -116,15 +116,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     selectProfile(selected.profileType);
   };
 
-  const loginWithEmail = (email: string, name: string) => {
+  const loginWithEmail = (
+    email: string,
+    name?: string,
+    profile: AccessibilityProfileType = 'Dyslexia',
+    role: 'student' | 'teacher' = 'student'
+  ) => {
+    const formattedName = name && name.trim() ? name.trim() : email.split('@')[0];
     const newUser: User = {
       id: `user-${Date.now()}`,
-      name: name || email.split('@')[0],
-      email,
-      role: 'student',
-      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=250&q=80',
-      profileType: 'Dyslexia',
-      primaryAssistance: 'Customized Adaptive Learning Suite',
+      name: formattedName.charAt(0).toUpperCase() + formattedName.slice(1),
+      email: email.trim(),
+      role,
+      avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=250&q=80`,
+      profileType: profile,
+      primaryAssistance: `${profile} Personalized Learning Suite`,
       stats: {
         materialsCompleted: 1,
         hoursLearned: 0.5,
@@ -132,11 +138,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       },
     };
     setUser(newUser);
-    selectProfile('Dyslexia');
+    selectProfile(profile);
   };
 
-  const loginWithGoogle = () => {
-    loginAsDemoUser('dyslexic');
+  const loginWithGoogle = (googleUser?: {
+    name?: string;
+    email?: string;
+    avatar?: string;
+    profile?: AccessibilityProfileType;
+  }) => {
+    const profile = googleUser?.profile || 'Dyslexia';
+    const newUser: User = {
+      id: `google-${Date.now()}`,
+      name: googleUser?.name || 'Google Learner',
+      email: googleUser?.email || 'learner@gmail.com',
+      role: 'student',
+      avatar: googleUser?.avatar || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=250&q=80',
+      profileType: profile,
+      primaryAssistance: 'Google Authenticated Inclusive Account',
+      stats: {
+        materialsCompleted: 4,
+        hoursLearned: 6.2,
+        quizzesMastered: 3,
+      },
+    };
+    setUser(newUser);
+    selectProfile(profile);
   };
 
   const logout = () => {

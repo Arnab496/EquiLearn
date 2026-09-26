@@ -14,7 +14,8 @@ import {
   Home,
   ChevronLeft,
   ChevronRight,
-  Hand
+  Hand,
+  LogIn
 } from 'lucide-react';
 
 export type NavigationTab = 
@@ -29,7 +30,8 @@ export type NavigationTab =
   | 'assistant'
   | 'teacher'
   | 'analytics'
-  | 'profile';
+  | 'profile'
+  | 'login';
 
 interface SidebarProps {
   currentTab: NavigationTab;
@@ -62,6 +64,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'teacher', label: 'Teacher Hub', icon: GraduationCap, accent: '#2EC4B6' },
     { id: 'analytics', label: 'Analytics', icon: BarChart3, accent: '#F4B942' },
     { id: 'profile', label: 'Accessibility Profile', icon: Sliders, accent: '#2EC4B6' },
+    { id: 'login', label: 'Sign In / Account', icon: LogIn, accent: '#2EC4B6' },
     { id: 'landing', label: 'Landing Page', icon: Home, accent: '#64748B' },
   ];
 

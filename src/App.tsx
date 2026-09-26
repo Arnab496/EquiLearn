@@ -23,6 +23,7 @@ import { AiAssistantPage } from './pages/AiAssistantPage';
 import { TeacherHubPage } from './pages/TeacherHubPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
 import { AccessibilityProfilePage } from './pages/AccessibilityProfilePage';
+import { LoginPage } from './pages/LoginPage';
 
 import { Sliders, ShieldCheck } from 'lucide-react';
 
@@ -83,6 +84,7 @@ function AppContent() {
           <LandingPage
             onEnterApp={() => setCurrentTab('dashboard')}
             onOpenAudit={() => setIsAuditModalOpen(true)}
+            onOpenLogin={() => setCurrentTab('login')}
           />
         );
       case 'dashboard':
@@ -113,6 +115,13 @@ function AppContent() {
         return <AnalyticsPage />;
       case 'profile':
         return <AccessibilityProfilePage />;
+      case 'login':
+        return (
+          <LoginPage
+            onSuccess={() => setCurrentTab('dashboard')}
+            onBackToHome={() => setCurrentTab('landing')}
+          />
+        );
       default:
         return (
           <DashboardPage
@@ -125,6 +134,7 @@ function AppContent() {
   };
 
   const isLanding = currentTab === 'landing';
+  const isLoginPage = currentTab === 'login';
 
   return (
     <div className="min-h-screen flex flex-col relative selection:bg-[#2EC4B6]/20">
@@ -139,12 +149,13 @@ function AppContent() {
         onOpenAccessibility={() => setIsAccessibilityDrawerOpen(true)}
         onOpenShortcuts={() => setIsShortcutsModalOpen(true)}
         onOpenAudit={() => setIsAuditModalOpen(true)}
+        onNavigateToLogin={() => setCurrentTab('login')}
       />
 
       {/* Main Workspace */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left Collapsible Sidebar (Hidden on landing page) */}
-        {!isLanding && (
+        {/* Left Collapsible Sidebar (Hidden on landing & login pages) */}
+        {!isLanding && !isLoginPage && (
           <Sidebar
             currentTab={currentTab}
             onSelectTab={(tab) => setCurrentTab(tab)}

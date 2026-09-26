@@ -28,13 +28,15 @@ interface NavbarProps {
   onOpenAudit: () => void;
   onToggleSidebar?: () => void;
   onOpenOfflineManager?: () => void;
+  onNavigateToLogin?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
   onOpenAccessibility, 
   onOpenShortcuts, 
   onOpenAudit,
-  onOpenOfflineManager
+  onOpenOfflineManager,
+  onNavigateToLogin
 }) => {
   const { user, loginAsDemoUser, logout } = useAuth();
   const { settings, updateSetting, isSpeaking, stopSpeech, playSpeech } = useAccessibility();
@@ -217,31 +219,53 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* User Profile & Demo Switcher Dropdown */}
           <div className="relative">
-            <button
-              onClick={() => setShowUserMenu(!showUserMenu)}
-              className="flex items-center gap-2 pl-1.5 pr-2 py-1 rounded-xl bg-white dark:bg-slate-800 border border-[#E7EAF2] dark:border-slate-700 hover:border-[#2EC4B6] transition"
-              aria-label="User account menu"
-            >
-              <img
-                src={user?.avatar || DEMO_USERS.dyslexic.avatar}
-                alt={user?.name || 'User'}
-                className="w-7 h-7 rounded-lg object-cover"
-              />
-              <span className="text-xs font-bold text-[#24324A] dark:text-white hidden sm:block max-w-[100px] truncate">
-                {user?.name.split(' ')[0]}
-              </span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#64748B]" />
-            </button>
+            {user ? (
+              <button
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                className="flex items-center gap-2 pl-1.5 pr-2 py-1 rounded-xl bg-white dark:bg-slate-800 border border-[#CBD5E1] dark:border-slate-700 hover:border-[#2EC4B6] transition cursor-pointer"
+                aria-label="User account menu"
+              >
+                <img
+                  src={user.avatar || DEMO_USERS.dyslexic.avatar}
+                  alt={user.name || 'User'}
+                  className="w-7 h-7 rounded-lg object-cover"
+                />
+                <span className="text-xs font-extrabold text-[#0F172A] dark:text-white hidden sm:block max-w-[100px] truncate">
+                  {user.name.split(' ')[0]}
+                </span>
+                <ChevronDown className="w-3.5 h-3.5 text-[#64748B]" />
+              </button>
+            ) : (
+              <button
+                onClick={onNavigateToLogin}
+                className="px-3 py-1.5 rounded-xl bg-[#2EC4B6] hover:bg-[#25ab9e] text-white font-extrabold text-xs flex items-center gap-1.5 shadow-xs transition cursor-pointer"
+              >
+                <UserIcon className="w-3.5 h-3.5" />
+                <span>Sign In</span>
+              </button>
+            )}
 
-            {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-72 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-[#E7EAF2] dark:border-slate-800 p-3 z-50">
+            {showUserMenu && user && (
+              <div className="absolute right-0 mt-2 w-72 rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-[#CBD5E1] dark:border-slate-800 p-3 z-50">
                 <div className="p-2 border-b border-[#E7EAF2] dark:border-slate-800 mb-2">
-                  <div className="font-bold text-xs text-[#24324A] dark:text-white">{user?.name}</div>
-                  <div className="text-[11px] text-[#64748B] truncate">{user?.email}</div>
+                  <div className="font-extrabold text-xs text-[#0F172A] dark:text-white">{user?.name}</div>
+                  <div className="text-[11px] text-[#475569] dark:text-slate-400 truncate">{user?.email}</div>
                   <div className="mt-1 px-2 py-0.5 rounded-full bg-[#2EC4B6]/15 text-[#2EC4B6] text-[10px] font-bold inline-block">
                     {user?.profileType} Profile Active
                   </div>
                 </div>
+
+                {/* Open Full Login Page Link */}
+                <button
+                  onClick={() => {
+                    setShowUserMenu(false);
+                    onNavigateToLogin?.();
+                  }}
+                  className="w-full text-left px-2 py-1.5 rounded-lg text-xs font-bold text-[#2EC4B6] hover:bg-[#2EC4B6]/10 flex items-center gap-2 mb-2 transition"
+                >
+                  <UserIcon className="w-3.5 h-3.5" />
+                  <span>Go to Login / Account Page</span>
+                </button>
 
                 <div className="mb-2">
                   <div className="text-[10px] uppercase font-bold text-[#94a3b8] px-2 mb-1">

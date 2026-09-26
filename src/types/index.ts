@@ -64,6 +64,8 @@ export interface Material {
   detailedDescription?: string;
   tactileDescription?: string;
   videoUrl?: string;
+  youtubeId?: string;
+  videoSource?: 'local' | 'youtube';
   transcript?: Array<{
     start: string;
     end: string;

@@ -6,25 +6,25 @@
   :root {
     --bg-primary: #FFFDF8;
     --bg-secondary: #F7F9FC;
-    --text-primary: #1E293B;
-    --text-secondary: #475569;
+    --text-primary: #0F172A;
+    --text-secondary: #334155;
     --accent-coral: #FF6B6B;
     --accent-teal: #2EC4B6;
     --accent-amber: #F4B942;
     --accent-lavender: #9B8AFB;
     --accent-sage: #8ACB88;
-    --border-color: #E2E8F0;
+    --border-color: #CBD5E1;
     color-scheme: light;
   }
 
   html.dark, body.dark {
     --bg-primary: #080C14;
     --bg-secondary: #0F172A;
-    --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
+    --text-primary: #FFFFFF;
+    --text-secondary: #CBD5E1;
     --border-color: #334155;
     background-color: #080C14 !important;
-    color: #F8FAFC !important;
+    color: #FFFFFF !important;
     color-scheme: dark;
   }
 
@@ -38,19 +38,21 @@
 
   /* Explicit light and dark theme text rules for guaranteed contrast */
   html:not(.dark) h1, html:not(.dark) h2, html:not(.dark) h3, html:not(.dark) h4 {
-    color: #1E293B;
+    color: #0F172A;
   }
 
   html.dark h1, html.dark h2, html.dark h3, html.dark h4 {
-    color: #F8FAFC;
+    color: #FFFFFF;
   }
 
   html:not(.dark) input, html:not(.dark) textarea, html:not(.dark) select {
-    color: #1E293B;
+    color: #0F172A;
+    background-color: #FFFFFF;
   }
 
   html.dark input, html.dark textarea, html.dark select {
-    color: #F8FAFC;
+    color: #FFFFFF;
+    background-color: #0F172A;
   }
 }
 
@@ -112,6 +114,69 @@ body.dark .bg-\[\#F7F9FC\] {
 html.dark .border-\[\#E7EAF2\],
 body.dark .border-\[\#E7EAF2\] {
   border-color: #334155 !important;
+}
+
+/* Alternating zebra contrast row styles */
+.contrast-stripe-even {
+  background-color: #FFFFFF;
+  color: #0F172A;
+  border-color: #E2E8F0;
+}
+html.dark .contrast-stripe-even, body.dark .contrast-stripe-even {
+  background-color: #0B1120 !important;
+  color: #FFFFFF !important;
+  border-color: #1E293B !important;
+}
+
+.contrast-stripe-odd {
+  background-color: #F1F5F9;
+  color: #0F172A;
+  border-color: #CBD5E1;
+}
+html.dark .contrast-stripe-odd, body.dark .contrast-stripe-odd {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+  border-color: #334155 !important;
+}
+
+/* Alternating text colors for high readability */
+.alt-text-cycle:nth-child(4n + 1) {
+  color: #0F766E !important;
+}
+html.dark .alt-text-cycle:nth-child(4n + 1), body.dark .alt-text-cycle:nth-child(4n + 1) {
+  color: #2EC4B6 !important;
+}
+.alt-text-cycle:nth-child(4n + 2) {
+  color: #BE123C !important;
+}
+html.dark .alt-text-cycle:nth-child(4n + 2), body.dark .alt-text-cycle:nth-child(4n + 2) {
+  color: #FF6B6B !important;
+}
+.alt-text-cycle:nth-child(4n + 3) {
+  color: #6D28D9 !important;
+}
+html.dark .alt-text-cycle:nth-child(4n + 3), body.dark .alt-text-cycle:nth-child(4n + 3) {
+  color: #9B8AFB !important;
+}
+.alt-text-cycle:nth-child(4n + 4) {
+  color: #B45309 !important;
+}
+html.dark .alt-text-cycle:nth-child(4n + 4), body.dark .alt-text-cycle:nth-child(4n + 4) {
+  color: #F4B942 !important;
+}
+
+/* Explicit high-visibility contrast utilities */
+html:not(.dark) .text-primary-contrast {
+  color: #0F172A !important;
+}
+html:not(.dark) .text-secondary-contrast {
+  color: #334155 !important;
+}
+html.dark .text-primary-contrast, body.dark .text-primary-contrast {
+  color: #FFFFFF !important;
+}
+html.dark .text-secondary-contrast, body.dark .text-secondary-contrast {
+  color: #CBD5E1 !important;
 }
 
 /* Custom Glassmorphism styles */

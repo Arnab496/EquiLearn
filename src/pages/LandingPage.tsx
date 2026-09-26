@@ -24,9 +24,10 @@ import {
 interface LandingPageProps {
   onEnterApp: () => void;
   onOpenAudit: () => void;
+  onOpenLogin?: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp, onOpenAudit }) => {
+export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp, onOpenAudit, onOpenLogin }) => {
   const { loginAsDemoUser } = useAuth();
   const { selectProfile } = useAccessibility();
 
@@ -153,10 +154,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp, onOpenAudi
         {/* CTA Buttons */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <button
-            onClick={onEnterApp}
+            onClick={onOpenLogin || onEnterApp}
             className="px-6 py-3.5 rounded-2xl bg-[#FF6B6B] hover:bg-[#fa5b5b] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center gap-2 group cursor-pointer"
           >
-            <span>Get Started Free</span>
+            <span>Get Started / Sign In</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
 
