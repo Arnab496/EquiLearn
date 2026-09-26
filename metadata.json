@@ -1,0 +1,6 @@
+{
+  "name": "EquiLearn – Inclusive Learning for Students with Disabilities",
+  "description": "A production-grade AI-powered accessibility platform transforming educational materials into personalized formats for blind, low-vision, deaf, dyslexic, and neurodivergent learners.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
