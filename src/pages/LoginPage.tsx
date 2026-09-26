@@ -38,7 +38,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToHome })
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
 
@@ -55,27 +55,31 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToHome })
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      loginWithEmail(email, name, selectedProfile, role);
+    try {
+      await loginWithEmail(email, password, name, selectedProfile, role);
       triggerSoundCue('success');
       onSuccess();
-    }, 600);
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Authentication failed. Please verify credentials.');
+      triggerSoundCue('alert');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true);
     setErrorMsg('');
-    setTimeout(() => {
-      setIsGoogleLoading(false);
-      loginWithGoogle({
-        name: 'Google Scholar',
-        email: 'scholar.inclusive@gmail.com',
-        profile: selectedProfile
-      });
+    try {
+      await loginWithGoogle(selectedProfile);
       triggerSoundCue('success');
       onSuccess();
-    }, 700);
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Google sign-in could not be completed.');
+      triggerSoundCue('alert');
+    } finally {
+      setIsGoogleLoading(false);
+    }
   };
 
   const handleSelectDemo = (persona: 'blind' | 'deaf' | 'dyslexic' | 'teacher' | 'adhd') => {

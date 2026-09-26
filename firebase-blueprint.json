@@ -1,0 +1,36 @@
+{
+  "$schema": "https://firebase.google.com/schemas/blueprint.v1.json",
+  "entities": {
+    "User": {
+      "collection": "users",
+      "fields": {
+        "id": { "type": "string", "description": "Auth UID" },
+        "name": { "type": "string", "description": "Display name" },
+        "email": { "type": "string", "description": "Email address" },
+        "role": { "type": "string", "description": "Role: student or teacher" },
+        "profileType": { "type": "string", "description": "Accessibility profile (Dyslexia, Blind, Deaf, ADHD, Low Vision)" },
+        "avatar": { "type": "string", "description": "Avatar URL" },
+        "createdAt": { "type": "string", "description": "ISO timestamp" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp" }
+      }
+    },
+    "Material": {
+      "collection": "materials",
+      "fields": {
+        "id": { "type": "string", "description": "Unique material ID" },
+        "userId": { "type": "string", "description": "Creator User UID" },
+        "title": { "type": "string", "description": "Title of material" },
+        "category": { "type": "string", "description": "Subject category" },
+        "type": { "type": "string", "description": "pdf, video, diagram, audio, quiz" },
+        "summary": { "type": "string", "description": "Executive summary" },
+        "content": { "type": "string", "description": "Extracted text content" },
+        "readingTime": { "type": "string", "description": "Estimated reading time" },
+        "pages": { "type": "number", "description": "Page count" },
+        "accessibleFormats": { "type": "array", "description": "Available accessibility formats" },
+        "keyPoints": { "type": "array", "description": "Core takeaways" },
+        "definitions": { "type": "array", "description": "Extracted glossary terms" },
+        "createdAt": { "type": "string", "description": "Timestamp" }
+      }
+    }
+  }
+}

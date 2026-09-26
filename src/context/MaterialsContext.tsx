@@ -8,6 +8,10 @@ import {
   clearAllOfflineCache, 
   getOfflineCacheStats 
 } from '../utils/offlineStorage';
+import { 
+  saveMaterialToFirestore, 
+  getMaterialsFromFirestore 
+} from '../firebase/config';
 
 interface MaterialsContextType {
   materials: Material[];
@@ -185,12 +189,23 @@ export const MaterialsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         setOfflineSyncStatus('syncing');
         const cachedFromDB = await getAllCachedMaterialsFromOffline();
 
-        if (cachedFromDB.length > 0 && isMounted) {
-          // Merge cached items with in-memory state
+        // Also fetch user's cloud materials from Firestore if online
+        let firestoreMats: Material[] = [];
+        if (navigator.onLine) {
+          try {
+            firestoreMats = await getMaterialsFromFirestore();
+          } catch (e) {
+            console.warn('Firestore materials fetch note:', e);
+          }
+        }
+
+        if ((cachedFromDB.length > 0 || firestoreMats.length > 0) && isMounted) {
+          // Merge cached items and firestore materials with in-memory state
           setMaterials((prev) => {
             const map = new Map<string, Material>();
             prev.forEach((m) => map.set(m.id, m));
             cachedFromDB.forEach((m) => map.set(m.id, { ...m, isOfflineAvailable: true }));
+            firestoreMats.forEach((m) => map.set(m.id, { ...m, isOfflineAvailable: true }));
             return Array.from(map.values());
           });
         } else {
@@ -257,11 +272,19 @@ export const MaterialsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setMaterials((prev) => [enriched, ...prev.filter((m) => m.id !== enriched.id)]);
     setActiveMaterial(enriched);
 
-    // Save to IndexedDB cache for offline access
+    // Save to IndexedDB cache for offline access and Firestore for cloud sync
     setOfflineSyncStatus('syncing');
     try {
       await saveMaterialToOfflineCache(enriched);
       await refreshCacheStats();
+
+      // Cloud persistence in Firestore
+      try {
+        await saveMaterialToFirestore(enriched);
+      } catch (cloudErr) {
+        console.warn('Firestore material sync note:', cloudErr);
+      }
+
       setOfflineSyncStatus(isOnline ? 'synced' : 'offline');
     } catch (e) {
       console.warn('Failed to cache material to IndexedDB', e);
